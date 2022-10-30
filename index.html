@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>firebase</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="container">
+
+    <section id="user"> </section>
+
+    <section id="auth">
+      <h2> Login / signup</h2>
+      <form class="auth-form  ">
+        <input type="email" name="email" placeholder="email" />
+        <input type="text" name="password" placeholder="password" />
+      </form>
+      <div>
+        <button class="auth-login"> Login </button>
+        <button class="auth-signup"> Signup </button>
+      </div>
+    </section>
+
+
+    <section id="add-todo">
+      <form class="todo-form">
+        <input type="text" name="todo" placeholder="todo" />
+        <button class="auth-login" type="submit"> add todo </button>
+      </form>
+    </section>
+
+    <section>
+      <h2> TODOS :</h2>
+      <div id="todos">
+        <!-- <div>
+          <label data-id="123">
+            <input type="checkbox" checked />
+            todo title
+          </label>
+          <span data-id="123"> x </span>
+        </div> -->
+      </div>
+    </section>
+  </div>
+
+  <script type="module" src="/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,135 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 18px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+body {
+  background: #212122;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+::selection {
+  background-color: #b38000;
+}
+
+.container {
+  max-width: 350px;
+  margin-inline: auto;
+  width: 100%;
+}
+
+section {
+  padding-block: 1.5rem;
+  border-bottom: 1px solid #474767;
+}
+
+h2 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.d-none {
+  display: none;
+}
+
+.auth-form,
+.todo-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+input {
+  background-color: #2e2e36;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  color: #fff;
+  border: none;
+  font-size: 1rem;
+}
+
+button {
+  background-color: #b38000;
+  padding: 0.5rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff2e0;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #cc960e;
+}
+
+#todos {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+#todos > div {
+  display: flex;
+  background-color: #101014;
+  border-radius: 6px;
+}
+
+#todos label {
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  flex: 1;
+}
+#todos input {
+  transform: scale(1.4);
+  accent-color: #cc960e;
+  margin-right: 0.5rem;
+}
+
+#todos span {
+  background: rgba(255, 0, 0, 0.2);
+  width: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f0d4ca;
+  border-radius: 6px;
+  cursor: pointer;
+}
+#todos span:hover {
+  background: rgba(255, 0, 0, 0.3);
+}
+
+.auth-form + div {
+  width: 100%;
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.auth-form + div button {
+  width: 100%;
+}
+
+#user p {
+  padding: 0.75rem;
+  background-color: #2e2e36;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+}
+#user button {
+  width: 100%;
+}
