@@ -3,7 +3,6 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>firebase</title>
   <link rel="stylesheet" href="style.css">
@@ -12,12 +11,12 @@
 <body>
 
   <div class="container">
-
     <section id="user"> </section>
 
     <section id="auth">
-      <h2> Login / signup</h2>
+      <h2> Login / Signup</h2>
       <form class="auth-form  ">
+        <!-- <input type="text" name="displayName" placeholder="username" /> -->
         <input type="email" name="email" placeholder="email" />
         <input type="text" name="password" placeholder="password" />
       </form>
@@ -48,7 +47,9 @@
       </div>
     </section>
   </div>
-
+  <div class="loader">
+    <span>loading...</span>
+  </div>
   <script type="module" src="/main.js"></script>
 </body>
 

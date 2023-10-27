@@ -133,3 +133,17 @@ button:hover {
 #user button {
   width: 100%;
 }
+.bold {
+  font-weight: bold;
+}
+.loader {
+  width: 100%;
+  height: 100%;
+  background-color: #3333335c;
+  position: fixed;
+  display: none;
+  place-content: center;
+}
+.loader span {
+  color: #fff;
+}

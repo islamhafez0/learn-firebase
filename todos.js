@@ -1,111 +1,104 @@
-import { collection, addDoc, serverTimestamp, onSnapshot, doc, deleteDoc, updateDoc, getDoc } from 'firebase/firestore'
-
+import { collection, getDoc, addDoc, serverTimestamp, onSnapshot, doc, deleteDoc, updateDoc } from "firebase/firestore"
+const loader = document.querySelector('.loader');
 
 export const handleTodos = (db) => {
-
-  const colRef = collection(db, 'todos')
-
-  onSnapshot(colRef, (snapshot) => {
-
+  const collectionReference = collection(db, 'todos');
+  onSnapshot(collectionReference, (snapshot) => {
+    loader.style.display = 'grid';
     const todos = []
-    let todosHtml = ''
-    snapshot.docs.forEach(doc => {
-      todos.push({ id: doc.id, ...doc.data() })
-      todosHtml += `
-      <div>
-          <label >
-            <input type="checkbox" ${doc.data().checked ? 'checked' : ''} data-id="${doc.id}" />
-            ${doc.data().title}
-          </label>
-          <span data-id="${doc.id}"> x </span>
-        </div>
-      
+    let todosInnerHtml = ''
+    snapshot.docs.forEach((doc) => {
+      todos.push({ id: doc.id, title: doc.data().title });
+        todosInnerHtml += `
+        <div>
+        <label>
+          <input type="checkbox" data-id="${doc.id}" ${doc.data().checked ? 'checked' : ''} />
+          ${doc.data().title}
+        </label>
+        <span data-id="${doc.id}"> x </span>
+      </div>
       `
     })
-    console.log('todos', todos)
-    const todosEl = document.querySelector('#todos')
-    todosEl.innerHTML = todosHtml
-
+    loader.style.display = 'none';
+    document.getElementById('todos').innerHTML = todosInnerHtml
     deleteTodo(db)
     updataTodo(db)
   })
-
-  addTodo(colRef)
+  addTodo(collectionReference)
   getTodo(db)
-
 }
 
 
 const addTodo = (ref) => {
-  const todosForm = document.querySelector('.todo-form')
+  const todosForm = document.querySelector('.todo-form');
   todosForm.addEventListener('submit', async (e) => {
     e.preventDefault()
-    console.log("ADD_TODO ", todosForm.todo.value)
-
     try {
+      if(!todosForm.todo.value || !todosForm.todo.value.trim()) {
+        alert('add something')
+        todosForm.reset()
+        return
+      }
       await addDoc(ref, {
         title: todosForm.todo.value,
         createdAt: serverTimestamp()
       })
-      todosForm.reset()
+      console.log('added')
     } catch (error) {
-      console.log(error.message)
+      console.log(error)
+      loader.style.display = 'none';
+    }finally {
+      loader.style.display = 'none';
     }
-
+    todosForm.reset()
   })
 }
 
-const deleteTodo = (db) => {
-  const deleteBtns = document.querySelectorAll('#todos span')
-  if (!deleteBtns || !deleteBtns.length) return;
-  deleteBtns.forEach(btn => {
-    btn.addEventListener('click', async (e) => {
-      console.log("DELETE_TODO", e.target.getAttribute('data-id'))
-      const id = e.target.getAttribute('data-id')
-      const docRef = doc(db, 'todos', id)
 
+const deleteTodo = (db) => {
+  const deleteBtns = document.querySelectorAll('#todos span');
+  if(!deleteBtns && !deleteBtns.length) return;
+  deleteBtns.forEach((btn) => {
+    btn.addEventListener('click', async (e) => {
+      const id = e.target.getAttribute('data-id');
+      const docREF = doc(db, 'todos', id);
       try {
-        await deleteDoc(docRef)
-        console.log('todo deleted')
-      } catch (error) {
-        console.log(error.message)
+        await deleteDoc(docREF)
+        console.log('deleted')
+      }catch (error) {
+        console.log(error)
+        loader.style.display = 'none';
+      }finally {
+        loader.style.display = 'none';
       }
     })
   })
-
 }
 
 const updataTodo = (db) => {
-
-  const cboxes = document.querySelectorAll('#todos input')
-  if (!cboxes || !cboxes.length) return;
-  cboxes.forEach(cbox => {
+  const checkBoxs = document.querySelectorAll('#todos input');
+  checkBoxs.forEach((cbox) => {
     cbox.addEventListener('change', async (e) => {
-      console.log("UPDATE_TODO", e.target.getAttribute('data-id'), e.target.checked)
-
-      const id = e.target.getAttribute('data-id')
-      const checked = e.target.checked
-      const docRef = doc(db, 'todos', id)
-
+      if(!checkBoxs && !checkBoxs.length) return;
+      console.log('update', e.target.getAttribute('data-id'), e.target.checked)
+      const checked = e.target.checked;
+      const id = e.target.getAttribute('data-id');
+      const docREF = doc(db, 'todos', id)
       try {
-        await updateDoc(docRef, { checked })
-        console.log('todo updated')
-      } catch (error) {
-        console.log(error.message)
+        await updateDoc(docREF, { checked })
+        console.log('updated')
+      }catch(error) {
+        console.log(error)
+      }finally {
+        loader.style.display = 'none';
       }
-
     })
   })
 }
 
-
 const getTodo = async (db) => {
-
-  console.log('getTodo ')
-  const docRef = doc(db, 'todos', 'EPypTla3ETDnqJhZfrlA')
-  const data = await getDoc(docRef)
-  console.log('getTodo', data.data())
+  const docREF = doc(db, 'todos', 'W2cnRbiwcPYYe68PCj1G');
+  const data = await getDoc(docREF);
+  console.log(data.data())
+  loader.style.display = 'none';
 }
-
-
-
